@@ -12,31 +12,36 @@ public class Main {
       //  ArrayList<MenuItem> menuItems = new ArrayList<>();
         Menu menu = new Menu(LocalDate.now(), new ArrayList<MenuItem>());
 
-        menu.getItems().add(new MenuItem(10,"Pizza", "Main Course",false));
-        menu.getItems().add(new MenuItem(5,"Fritters", "Appetizer",true));
-        menu.getItems().add(new MenuItem(10,"Ice cream", "Dessert",true));
-        menu.getItems().add(new MenuItem(10,"Veggies", "Appetizer",false));
+        menu.getItems().add(new MenuItem(10,"Pizza", "Main Course"));
+        menu.getItems().add(new MenuItem(5,"Fritters", "Appetizer"));
+        menu.getItems().add(new MenuItem(10,"Ice cream", "Dessert"));
+        menu.getItems().add(new MenuItem(10,"Veggies", "Appetizer"));
 
-        menu.addItems(new MenuItem(15,"Caramel Custard", "Dessert",true));
-        menu.addItems(new MenuItem(10,"Burrito Bowl", "Dinner",true));
-
+        //printing the first item
+        System.out.println("First item in menu is :"+menu.getItems().get(0).getDescription());
+        //printing the menu
         System.out.println("\nItems in menu are:");
-        for(MenuItem items : menu.getItems()) {
-            System.out.println(items.getDescription());
-        }
+        System.out.println(menu);
+        System.out.println("********************************");
+        //adding items in menu and printing the new menu.
+        menu.addItems(new MenuItem(15,"Caramel Custard", "Dessert"));
+        menu.addItems(new MenuItem(10,"Burrito Bowl", "Main Course"));
+        menu.addItems(new MenuItem(10,"Burrito Bowl", "Main Course"));
+        System.out.println(menu);
 
-       menu.removeItems(new MenuItem(10,"Pizza", "Main Course",false));
-        System.out.println("\nItems in menu are:");
-        for(MenuItem items : menu.getItems()) {
-            System.out.println(items.getDescription());
-        }
+        System.out.println("********************************");
+        //removing items for menu and printing the new menu.
+        menu.removeItems(menu.getItems().get(0));
+        menu.removeItems(menu.getItems().get(3));
+        System.out.println(menu);
 
-        System.out.println("\nNew items in menu are:");
-        for(MenuItem items : menu.getItems()) {
-            if(items.getNew()) {
-                System.out.println(items.getDescription());
-            }
-        }
+        //test override equals method.
+
+        MenuItem item1 = menu.getItems().get(0);
+        MenuItem item2 = menu.getItems().get(1);
+        System.out.println("\nComparing items using equals method: ");
+        System.out.println(item1.equals(item2));
+
 
         System.out.println("\nMenu last updates on :" + menu.getLastUpdated());
         }

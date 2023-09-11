@@ -29,10 +29,46 @@ public class Menu {
         return items;
     }
 
-    public void addItems(MenuItem menuItem){
-        items.add(menuItem);
+    public void addItems(MenuItem newItem){
+        String message = "Item already exist!";
+        if(items.contains(newItem)){
+            System.out.println(message);
+            return;
+        }
+        items.add(newItem);
+        lastUpdated = LocalDate.now();
     }
-    public void removeItems(MenuItem menuItem){
-        items.remove(menuItem);
+
+    public void removeItems(MenuItem deleteItem){
+
+        items.remove(deleteItem);
+        lastUpdated = LocalDate.now();
     }
+
+    //custom toString method()
+    @Override
+    public String toString(){
+        StringBuilder appetizers =  new StringBuilder();
+        for(MenuItem item : items){
+            if(item.getCategory().equals("Appetizer")){
+                appetizers.append("\n").append(item).append("\n");
+            }
+        } StringBuilder mainCourse =  new StringBuilder();
+        for(MenuItem item : items){
+            if(item.getCategory().equals("Main Course")){
+                mainCourse.append("\n").append(item).append("\n");
+            }
+        } StringBuilder dessert =  new StringBuilder();
+        for(MenuItem item : items){
+            if(item.getCategory().equals("Dessert")){
+                dessert.append("\n").append(item).append("\n");
+            }
+        }
+        return "\n---------Restaurant Menu--------\n"+ "APPETIZERS\n" +appetizers.toString()+ "\n"+
+                "MAIN COURSE\n" +mainCourse.toString() +"\n"+
+                "DESSERT\n"+ dessert.toString() +"\n";
+    }
+
+
+
 }

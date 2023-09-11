@@ -1,16 +1,23 @@
 package org.launchcode.restaurant;
 
+import java.security.PublicKey;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 public class MenuItem {
     private double price;
     private String description;
     private String category;
-    private boolean isNew;
+    private final LocalDate dateAdded;
 
-    public MenuItem(double p, String d, String c, boolean iN) {
+    public MenuItem(double p, String d, String c) {
         this.price = p;
         this.description = d;
         this.category = c;
-        this.isNew = iN;
+        //for current date
+        this.dateAdded = LocalDate.now();
+        //testing isNew for false
+       // this.dateAdded = LocalDate.parse("2022-08-09");
     }
 
     public void setPrice(double price) {
@@ -25,9 +32,7 @@ public class MenuItem {
         this.category = category;
     }
 
-    public void setNew(boolean aNew) {
-        isNew = aNew;
-    }
+
 
     public double getPrice(){
         return price;
@@ -40,8 +45,42 @@ public class MenuItem {
     public String getCategory() {
         return category;
     }
-    public boolean getNew(){
 
-        return isNew;
+    public LocalDate getDateAdded(){
+        return  dateAdded;
+    }
+
+    //define instance method isNew()
+    boolean isNew(){
+        LocalDate today = LocalDate.now();
+        double daysBetween = getDateAdded().until(today, ChronoUnit.DAYS);
+        return daysBetween<90;
+    }
+
+    //custom toString method
+    @Override
+    public String toString(){
+        String newStr = isNew() ? " NEW!" : "";
+        if(!description.contains("NEW")) {
+            return description = description + newStr;
+        }else{
+            return description;
+        }
+    }
+
+    //custom equals method
+
+    public boolean equals(Object toBeCompared){
+        if(this == toBeCompared){
+            return true;
+        }
+        if(toBeCompared == null){
+            return false;
+        }
+        if(getClass() != toBeCompared.getClass()){
+            return false;
+        }
+        MenuItem otherItem = (MenuItem) toBeCompared;
+        return this.description.equals(otherItem.getDescription());
     }
 }
